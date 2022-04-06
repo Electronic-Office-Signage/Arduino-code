@@ -70,20 +70,7 @@ void setup(){
   else{
     Serial.println("failed to connect");
   }
- /*
-  const char* username = doc["name"]; // "t-huff"
-  int uid = doc["uid"]; // 12345
-  const char* last_update = doc["time"]; // "2022-03-23 20:22:42"
-  //lastupdate = *last_update;
-  int template_id = doc["template_id"]; // 1
-  //form = *template_id;
-  const char* title_text = doc["title_text"]; // "Dr. Timothy Huff"
-  //title = *title_text;
-  int title_color = doc["title_color"]; // 0
-  const char* box1_text = doc["box1_text"]; // "I've changed formats, come in and tell me what you think!"
-  //text1 = *box1text;
-  int box1_color = doc["box1_color"]; // 1
-  */
+  
   //[{"name": "t-huff", "uid": 12345, "time": "2022-04-04 22:20:56", "template_id": 0, "title_text": "yo mama", "title_color": 0, "box1_text": "yo mama house", "box1_color": 1}]
   Serial.println(input);
   int inputlength = strlen(input);
@@ -186,9 +173,6 @@ void create(){
   int text1width = 593;
   int text1height = 373;
   int text1Texty = 100;
-  if(form==2||form==4){
-    text1width = 295;
-  }
   if(form==2){
     text1Y = 5;
     text1Texty = 45;
@@ -222,7 +206,7 @@ void create(){
 }
 void loop(){
     Serial.println("about to snore");
-    LowPower.sleep(5000);
+    LowPower.sleep(900000);
     setup();
     Serial.println("Im Awake");
 }
