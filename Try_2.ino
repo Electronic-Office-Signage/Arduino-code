@@ -29,12 +29,12 @@ int text1Color = GxEPD_BLACK;
 int text2Color =GxEPD_BLACK;
 
 void setup(){
-  Serial.begin(9600);
+  //Serial.begin(9600);
   delay(5000);
   //Wifi first
   while (status != WL_CONNECTED) {
-    Serial.print("Attempting to connect to open SSID: ");
-    Serial.println(ssid);
+    //Serial.print("Attempting to connect to open SSID: ");
+    //Serial.println(ssid);
     status = WiFi.begin(ssid, password);
     // wait 10 seconds for connection:
     delay(10000);
@@ -48,7 +48,7 @@ void setup(){
   // that you want to connect to (port 80 is default for HTTP):
   WiFiClient client;
   char input[384];
-  Serial.println("\nStarting connection to server...");
+  //Serial.println("\nStarting connection to server...");
   // if you get a connection, report back via serial:
   if (client.connect(server, 5000)) {
     Serial.println("connected to server");
@@ -65,87 +65,87 @@ void setup(){
       i++;
     }
       client.stop();
-      Serial.println(input);
+      //Serial.println(input);
   }
   else{
-    Serial.println("failed to connect");
+    //Serial.println("failed to connect");
   }
   
   //[{"name": "t-huff", "uid": 12345, "time": "2022-04-04 22:20:56", "template_id": 0, "title_text": "yo mama", "title_color": 0, "box1_text": "yo mama house", "box1_color": 1}]
-  Serial.println(input);
+  //Serial.println(input);
   int inputlength = strlen(input);
   Parser parser((byte*)input, inputlength);
   String junk = " ";
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  ///Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String(' ');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   lastupdate = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(lastupdate);
+  //Serial.println(lastupdate);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String(' ');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   form = parser.Read_Int16();
-  Serial.println(form);
+  //Serial.println(form);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   title = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(title);
+  //Serial.println(title);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+ // Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  Serial.println(junk);
+  //Serial.println(junk);
   text1 = parser.Read_String('"');
-  Serial.println(text1);
+  //Serial.println(text1);
   
   //start display connection
   display.init();
@@ -205,8 +205,8 @@ void create(){
       while (display.nextPage());
 }
 void loop(){
-    Serial.println("about to snore");
+   // Serial.println("about to snore");
     LowPower.sleep(1800000);
     setup();
-    Serial.println("Im Awake");
+    //Serial.println("Im Awake");
 }
