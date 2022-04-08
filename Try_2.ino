@@ -206,7 +206,7 @@ void create(){
 }
 void loop(){
     Serial.println("about to snore");
-    LowPower.sleep(900000);
+    LowPower.sleep(1800000);
     setup();
     Serial.println("Im Awake");
 }
