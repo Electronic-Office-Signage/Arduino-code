@@ -33,23 +33,18 @@ void setup(){
   delay(5000);
   //Wifi first
   while (status != WL_CONNECTED) {
-    //Serial.print("Attempting to connect to open SSID: ");
-    //Serial.println(ssid);
     status = WiFi.begin(ssid, password);
     // wait 10 seconds for connection:
     delay(10000);
   }
   
   //Get Json From server
-  char server[] = "eos-services.onu.edu";    // name address for Google (using DNS)
+  char server[] = "eos-services.onu.edu";  
 
   // Initialize the Ethernet client library
   // with the IP address and port of the server
-  // that you want to connect to (port 80 is default for HTTP):
   WiFiClient client;
   char input[384];
-  //Serial.println("\nStarting connection to server...");
-  // if you get a connection, report back via serial:
   if (client.connect(server, 5000)) {
     Serial.println("connected to server");
     // Make a HTTP request:
@@ -65,87 +60,62 @@ void setup(){
       i++;
     }
       client.stop();
-      //Serial.println(input);
+      WiFi.disconnect();
+      WiFi.lowPowerMode();
   }
-  else{
-    //Serial.println("failed to connect");
-  }
+ 
   
-  //[{"name": "t-huff", "uid": 12345, "time": "2022-04-04 22:20:56", "template_id": 0, "title_text": "yo mama", "title_color": 0, "box1_text": "yo mama house", "box1_color": 1}]
   //Serial.println(input);
   int inputlength = strlen(input);
   Parser parser((byte*)input, inputlength);
   String junk = " ";
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  ///Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String(' ');
   parser.Skip(1);
-  //Serial.println(junk);
   lastupdate = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(lastupdate);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String(' ');
   parser.Skip(1);
-  //Serial.println(junk);
   form = parser.Read_Int16();
-  //Serial.println(form);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   title = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(title);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
- // Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   junk = parser.Read_String('"');
   parser.Skip(1);
-  //Serial.println(junk);
   text1 = parser.Read_String('"');
-  //Serial.println(text1);
+ 
   
   //start display connection
   display.init();
@@ -205,8 +175,10 @@ void create(){
       while (display.nextPage());
 }
 void loop(){
-   // Serial.println("about to snore");
+   
     LowPower.sleep(1800000);
+    delay(5000);
+    WiFi.noLowPowerMode();
     setup();
-    //Serial.println("Im Awake");
+    
 }
