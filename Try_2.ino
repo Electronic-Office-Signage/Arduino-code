@@ -60,7 +60,6 @@ void setup(){
       i++;
     }
       client.stop();
-      WiFi.disconnect();
       WiFi.lowPowerMode();
   }
  
