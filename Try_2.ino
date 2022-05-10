@@ -10,8 +10,8 @@
 
 //#include "arduino_secrets.h"
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
-char ssid[] = "IT Wireless";        // your network SSID (name)
-char password[] = "deathpunch";
+char ssid[] = ;        // your network SSID (name)
+char password[] = ;
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
 
@@ -48,7 +48,7 @@ void setup(){
   if (client.connect(server, 5000)) {
     Serial.println("connected to server");
     // Make a HTTP request:
-    client.println("GET /api/device?dev=12345 HTTP/1.1");
+    client.println("GET /api/device?dev=12346 HTTP/1.1");
     client.println("Host: eos-services.onu.edu");
     client.println("Connection: close");
     client.println();
@@ -63,11 +63,14 @@ void setup(){
       WiFi.lowPowerMode();
   }
  
-  
+  if(input[1]==NULL){
+    return;
+  }
   //Serial.println(input);
   int inputlength = strlen(input);
   Parser parser((byte*)input, inputlength);
   String junk = " ";
+  String templastupdate = " ";
   junk = parser.Read_String('"');
   parser.Skip(1);
   junk = parser.Read_String('"');
@@ -88,7 +91,7 @@ void setup(){
   parser.Skip(1);
   junk = parser.Read_String(' ');
   parser.Skip(1);
-  lastupdate = parser.Read_String('"');
+  templastupdate = parser.Read_String('"');
   parser.Skip(1);
   junk = parser.Read_String('"');
   parser.Skip(1);
@@ -114,7 +117,14 @@ void setup(){
   junk = parser.Read_String('"');
   parser.Skip(1);
   text1 = parser.Read_String('"');
- 
+
+
+  if(templastupdate==lastupdate){
+    return;
+  }
+  else{
+    lastupdate = templastupdate;
+  }
   
   //start display connection
   display.init();
@@ -175,9 +185,10 @@ void create(){
 }
 void loop(){
    
-    LowPower.sleep(1800000);
+    LowPower.sleep(90000);
     delay(5000);
     WiFi.noLowPowerMode();
+    delay(5000);
     setup();
-    
+      
 }
